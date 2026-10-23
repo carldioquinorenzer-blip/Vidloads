@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0d0c">
+  <title>VidLoad — Video Tools</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #0b0d0c;
+      color: #f4f7f4;
+      font-family: system-ui, Arial, sans-serif;
+      min-height: 100vh;
+    }
+    header {
+      padding: 22px 20px;
+      border-bottom: 1px solid #242a26;
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+    header span { color: #70f5a2; }
+    main {
+      width: min(680px, 100%);
+      margin: 70px auto;
+      padding: 22px;
+    }
+    .tag {
+      color: #70f5a2;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+    h1 {
+      font-size: clamp(36px, 9vw, 57px);
+      line-height: 1.06;
+      margin: 16px 0;
+      letter-spacing: -2px;
+    }
+    h1 span { color: #70f5a2; }
+    p { color: #a8b1ab; line-height: 1.7; }
+    .panel {
+      margin-top: 30px;
+      padding: 18px;
+      background: #141815;
+      border: 1px solid #303932;
+      border-radius: 17px;
+    }
+    label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 12px;
+      font-weight: 650;
+    }
+    input {
+      width: 100%;
+      background: #090b0a;
+      color: white;
+      border: 1px solid #3a443d;
+      border-radius: 10px;
+      padding: 15px 12px;
+      font-size: 15px;
+      outline: none;
+    }
+    input:focus { border-color: #70f5a2; }
+    button {
+      width: 100%;
+      margin-top: 12px;
+      padding: 15px;
+      border: 0;
+      border-radius: 10px;
+      background: #70f5a2;
+      color: #07110a;
+      font-weight: 800;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    #status {
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .feature {
+      padding: 15px;
+      border: 1px solid #303932;
+      border-radius: 12px;
+      color: #c5cec8;
+      font-size: 13px;
+    }
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #778078;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <header>VID<span>LOAD</span></header>
+  <main>
+    <div class="tag">YOUR VIDEO TOOLKIT</div>
+    <h1>Videos in.<br><span>Possibilities out.</span></h1>
+    <p>
+      A simple place to work with video links.
+      Start with public videos you own or have
+      permission to download.
+    </p>
+
+    <section class="panel">
+      <label for="videoUrl">Paste your video URL</label>
+      <input id="videoUrl" type="url"
+        placeholder="https://example.com/video"
+        autocomplete="url">
+      <button id="checkButton">Check link</button>
+      <p id="status" aria-live="polite">
+        Ready when you are.
+      </p>
+    </section>
+
+    <div class="features">
+      <div class="feature">📱 Mobile friendly</div>
+      <div class="feature">⚡ Simple interface</div>
+      <div class="feature">🔗 Link checker</div>
+      <div class="feature">🎬 Video workflow</div>
+    </div>
+  </main>
+  <footer>VIDLOAD · Video tools made simple</footer>
+
+  <script>
+    const input = document.getElementById("videoUrl");
+    const status = document.getElementById("status");
+
+    document.getElementById("checkButton")
+      .addEventListener("click", () => {
+        try {
+          const url = new URL(input.value.trim());
+
+          if (!["http:", "https:"].includes(url.protocol)) {
+            throw new Error("Invalid protocol");
+          }
+
+          status.textContent =
+            "Link format looks valid. This is only a URL check; downloading is not connected yet.";
+        } catch {
+          status.textContent =
+            "Please enter a valid link beginning with https://";
+        }
+      });
+  </script>
+</body>
+</html>
